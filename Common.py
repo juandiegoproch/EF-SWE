@@ -60,6 +60,8 @@ class Controller:
         for i in self.dataHandler.usuarios:
             if i.alias == alias:
                 i.contactos.append(Contacto(contactoAlias,datetime.now()))
+                return
+        raise Exception("El usuario no existe")
         
     def enviarMensaje(self,aliasremitente,aliasDestinatario,contenido):
         mensaje = None
@@ -77,3 +79,9 @@ class Controller:
         for i in self.dataHandler.usuarios:
             if i.alias == aliasDestinatario:
                 i.mensajesRecibidos.append(mensaje)
+        
+    def getMensajes(self,alias):
+        for i in self.dataHandler.usuarios:
+            if i.alias == alias:
+                return i.verHistorialMensajes()
+        raise Exception("El usuario no existe")
